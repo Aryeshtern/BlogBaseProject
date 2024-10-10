@@ -8,6 +8,7 @@ import {
   addComment,
 } from "../controllers/postController";
 import  {errorHendler} from "../middleware/errorHandler"
+import {authenticateToken} from "../middleware/authMiddleware";
 
 const postRouter = Router();
 
@@ -153,7 +154,7 @@ const postRouter = Router();
  */
 
 
-postRouter.post("/", errorHendler(createPost));
+postRouter.post("/", authenticateToken, errorHendler(createPost));
 postRouter.get("/", errorHendler(getPosts));
 postRouter.get("/:id", errorHendler(getPost));
 postRouter.put("/:id", errorHendler(updatePost));

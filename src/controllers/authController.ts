@@ -4,9 +4,9 @@ import { generateToken} from "../utils/auth";
 
 export const login = async (req: Request, res: Response) : Promise<void>=> {
 
-    const { userName, password } = req.body;
+    const { username, password } = req.body;
     try {
-        const user = await User.findOne({ userName });
+        const user = await User.findOne({ username });
     
         if (!user ||!(await user.comparePassword(password))) {
             res.status(401).json({ message: 'Invalid credentials' });

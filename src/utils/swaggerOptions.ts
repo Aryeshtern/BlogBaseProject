@@ -98,11 +98,6 @@ const options = {
                 type: "string",
                 required: true,
               },
-              author: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-                required: true,
-              },
             },
           },
           CreateComment: {

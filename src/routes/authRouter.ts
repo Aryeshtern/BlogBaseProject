@@ -6,7 +6,7 @@ const router = Router();
 
 /**
  * @swagger
- * /auth/login:
+ * /api/auth/login:
  *   post:
  *     tags: [Authentication]
  *     summary: User login
@@ -18,7 +18,7 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               userName:
+ *               username:
  *                 type: string
  *                 description: The user's username
  *                 example: "john_doe"

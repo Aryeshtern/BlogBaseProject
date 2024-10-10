@@ -7,6 +7,7 @@ import connectDB from "./config/db";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import options from "./utils/swaggerOptions";
+import cookieParser from "cookie-parser";
 
 const openapiSpecification = swaggerJsdoc(options);
 
@@ -19,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
-
+app.use(cookieParser());
 connectDB();
 
 // Routes

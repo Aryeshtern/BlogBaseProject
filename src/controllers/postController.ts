@@ -1,14 +1,27 @@
 import { Request, Response, NextFunction } from "express";
 import Post, { IPost } from "../models/postModel";
 import User from "../models/userModel";
-
+import {authRequest} from "../middleware/authMiddleware"
+import { createPostDB } from '../services/postSevices'
+import {IUser} from "../models/userModel";
 // Create a new post
 export const createPost = async (
-  req: Request,
+  req: authRequest,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
+  if(!req.user || !req.user.userId){
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   const { title, content } = req.body;
+  const user: IUser | null = await User.findById(req.user.userId);
+  if (!user) {
+    res.status(404).json({ message: "User not found" });
+    return;
+  }
+  const newPost = await createPostDB(title, content, req.user.userId);
+  res.status(201).json(newPost);
 };
 
 // Delete a post

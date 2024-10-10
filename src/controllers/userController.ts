@@ -3,7 +3,6 @@ import User from "../models/userModel";
 
 export const createUser = async (req: Request, res: Response) => {
     const { username, password, email ,profile} = req.body;
-    console.log(req.body);
     const newUser = new User({
         username,
         password,
