@@ -1,6 +1,6 @@
-import { Router } from 'express'
+import { Router } from "express";
 
-import { login} from '../controllers/authController';
+import { login } from "../controllers/authController";
 
 const router = Router();
 
@@ -51,6 +51,6 @@ const router = Router();
  *         description: Unauthorized, invalid credentials
  */
 
-router.post('/login', login);
+router.post("/login", login);
 
 export default router;

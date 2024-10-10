@@ -7,8 +7,8 @@ import {
   deletePost,
   addComment,
 } from "../controllers/postController";
-import  {errorHendler} from "../middleware/errorHandler"
-import {authenticateToken} from "../middleware/authMiddleware";
+import { errorHendler } from "../middleware/errorHandler";
+import { authenticateToken } from "../middleware/authMiddleware";
 
 const postRouter = Router();
 
@@ -153,12 +153,11 @@ const postRouter = Router();
  *         description: Bad request, invalid input.
  */
 
-
 postRouter.post("/", authenticateToken, errorHendler(createPost));
 postRouter.get("/", errorHendler(getPosts));
 postRouter.get("/:id", errorHendler(getPost));
-postRouter.put("/:id", errorHendler(updatePost));
-postRouter.delete("/:id", errorHendler(deletePost));
+postRouter.put("/:id", authenticateToken, errorHendler(updatePost));
+postRouter.delete("/:id", authenticateToken, errorHendler(deletePost));
 postRouter.post("/:id/comments", errorHendler(addComment));
 
 export default postRouter;

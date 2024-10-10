@@ -23,12 +23,12 @@ const userRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/CreateUser'  
+ *               $ref: '#/components/schemas/CreateUser'
  *       400:
  *         description: Bad request, invalid input.
  *       409:
  *         description: Conflict, user already exists.
- * 
+ *
  *   get:
  *     tags: [Users]
  *     summary: Get all users
@@ -42,7 +42,7 @@ const userRouter = Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
- * 
+ *
  * /api/users/{username}:
  *   get:
  *     tags: [Users]

@@ -11,7 +11,7 @@ export interface IUser extends Document {
   };
   password: string;
   posts: Types.ObjectId[];
-  comparePassword(userPassword: string): Promise<boolean>
+  comparePassword(userPassword: string): Promise<boolean>;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -21,7 +21,8 @@ const UserSchema = new Schema<IUser>({
     unique: true,
     lowercase: true,
     validate: function (value: string) {
-     validator.isAlphanumeric(value), "Username can only contain alphanumeric characters."
+      validator.isAlphanumeric(value),
+        "Username can only contain alphanumeric characters.";
     },
   },
   email: {
@@ -30,7 +31,7 @@ const UserSchema = new Schema<IUser>({
     unique: true,
     lowercase: true,
     validate: function (value: string) {
-     validator.isEmail(value), "Invalid email format."
+      validator.isEmail(value), "Invalid email format.";
     },
   },
   profile: {
@@ -42,23 +43,28 @@ const UserSchema = new Schema<IUser>({
     required: [true, "Password is required."],
     minlength: 8,
     validate: function (value: string) {
-     validator.matches(value, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/), "Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character."
+      validator.matches(
+        value,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      ),
+        "Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.";
     },
   },
   posts: [{ type: Types.ObjectId, ref: "Post" }],
 });
 
-UserSchema.pre<IUser>('save', async function(next) {
-  if(this.isModified('password')){
-      this.password = await bcrypt.hash(this.password, 10);
-      next();
+UserSchema.pre<IUser>("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
   }
   return next();
+});
 
-})
-
-UserSchema.methods.comparePassword = async function(userPassword: string): Promise<boolean> {
+UserSchema.methods.comparePassword = async function (
+  userPassword: string
+): Promise<boolean> {
   return await bcrypt.compare(userPassword, this.password);
-}
+};
 
 export default mongoose.model<IUser>("User", UserSchema);

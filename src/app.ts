@@ -11,7 +11,6 @@ import cookieParser from "cookie-parser";
 
 const openapiSpecification = swaggerJsdoc(options);
 
-
 dotenv.config();
 
 const app = express();
